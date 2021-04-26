@@ -9,7 +9,7 @@ from .models import Listing
 # Create your views here.
 
 def index(request):
-    listings = Listing.objects.order_by('-list_date').filter(is_publihed=True)
+    listings = Listing.objects.order_by('-list_date').filter(is_published=True)
 
     paginator = Paginator(listings, 3)
 
@@ -23,6 +23,7 @@ def index(request):
     return render(request, 'listings/listings.html', context)
 
 def listing(request, listing_id):
+    # Check if listing is available or throw a 404
     listing = get_object_or_404(Listing, pk=listing_id)
 
     context = {
