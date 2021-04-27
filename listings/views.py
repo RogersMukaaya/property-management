@@ -59,14 +59,15 @@ def search(request):
         if bedrooms:
           querySet_list = querySet_list.filter(city__lte=bedrooms)
     
-    # Price 
+    # Price  
     if 'price' in request.GET:
         price  = request.GET['price']
         if price:
           querySet_list = querySet_list.filter(city__lte=price)
                  
     context = {
-        'listings':  querySet_list
+        'listings':  querySet_list,
+        'values': request.GET
     }
      
     return render(request, 'listings/search.html', context)
