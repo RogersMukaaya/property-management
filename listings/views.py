@@ -33,4 +33,18 @@ def listing(request, listing_id):
     return render(request, 'listings/listing.html', context)
 
 def search(request):
-    return render(request, 'listings/search.html')
+    querySet_list = Listing.objects.order_by('-list_date')
+
+    #Keywords
+    if 'keywords' in request.GET:
+        keywords = request.GET['keywords']
+        if keywords:
+          #See if any of the listing in the listings contains anything being searched  
+          querySet_list = querySet_list.filter(description__icontains=keywords)  
+             
+
+    context = {
+        'listings':  querySet_list
+    }
+     
+    return render(request, 'listings/search.html', context)
