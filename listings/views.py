@@ -35,14 +35,36 @@ def listing(request, listing_id):
 def search(request):
     querySet_list = Listing.objects.order_by('-list_date')
 
-    #Keywords
+    # Keywords
     if 'keywords' in request.GET:
         keywords = request.GET['keywords']
         if keywords:
-          #See if any of the listing in the listings contains anything being searched  
           querySet_list = querySet_list.filter(description__icontains=keywords)  
              
+    # City
+    if 'city' in request.GET:
+        city = request.GET['city']
+        if city:
+          querySet_list = querySet_list.filter(city__iexact=city)  
 
+    # State
+    if 'state' in request.GET:
+        state  = request.GET['state']
+        if state:
+          querySet_list = querySet_list.filter(city__iexact=state)
+    
+    # Bedrooms
+    if 'bedrooms' in request.GET:
+        bedrooms  = request.GET['bedrooms']
+        if bedrooms:
+          querySet_list = querySet_list.filter(city__lte=bedrooms)
+    
+    # Price 
+    if 'price' in request.GET:
+        price  = request.GET['price']
+        if price:
+          querySet_list = querySet_list.filter(city__lte=price)
+                 
     context = {
         'listings':  querySet_list
     }
