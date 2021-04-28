@@ -24,7 +24,7 @@ price_choices = {
     '100000':'$1M'
 }
 
-countries = {
+state_choices = {
     'AL':'Alabama',
     'AK':'Alaska',
     'AZ':'Arizona',
